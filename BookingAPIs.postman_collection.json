@@ -1,0 +1,416 @@
+{
+	"info": {
+		"_postman_id": "b6f83e1e-fc32-4b16-a7ec-7e368eb50d86",
+		"name": "BookingAPI's",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14603549"
+	},
+	"item": [
+		{
+			"name": "1-AuthAPI",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//const response=pm.response.json();\r",
+							"//const tokenID=response.token;\r",
+							"//console.log(tokenID)\r",
+							"\r",
+							"//pm.variables.set(\"bookingtoken\" ,tokenID )"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\" : \"admin\",\n    \"password\" : \"password123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}auth",
+					"host": [
+						"{{url}}auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2-Get BookingID's",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}booking",
+					"host": [
+						"{{url}}booking"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3-Create Booking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response=pm.response.json();\r",
+							"const bookID=response.bookingid;\r",
+							"console.log(bookID)\r",
+							"\r",
+							"pm.variables.set(\"BookingID\" ,bookID )\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"packages": {},
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstname\" : \"Deepika\",\n    \"lastname\" : \"PP\",\n    \"totalprice\" : 111,\n    \"depositpaid\" : true,\n    \"bookingdates\" : {\n        \"checkin\" : \"2024-10-01\",\n        \"checkout\" : \"2019-10-12\"\n    },\n    \"additionalneeds\" : \"Breakfast\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}booking",
+					"host": [
+						"{{url}}booking"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4-Get A BookingId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}booking/{{BookingID}}",
+					"host": [
+						"{{url}}booking"
+					],
+					"path": [
+						"{{BookingID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5-Update Booking",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.sendRequest({\r",
+							"    url:pm.collectionVariables.get('url')+'auth',\r",
+							"    method:'POST',\r",
+							"    header:{\r",
+							"        'Content-Type':'application/json'\r",
+							"        },\r",
+							"    body:{\r",
+							"        mode:'raw',\r",
+							"        raw:JSON.stringify({\r",
+							"           \"username\" : pm.collectionVariables.get('username'),\r",
+							"           \"password\" :pm.collectionVariables.get('password')\r",
+							"            }\r",
+							"        )\r",
+							"    }\r",
+							"    \r",
+							"  },function(error,response) {\r",
+							"    if(error){\r",
+							"        console.log(error)\r",
+							"    }\r",
+							"    else{\r",
+							"        const responsebody=JSON.parse(response.text())\r",
+							"        const bookID =responsebody.token\r",
+							"        console.log(bookID)\r",
+							"        pm.variables.set('booking_token_id' ,bookID )\r",
+							"    }\r",
+							"  }\r",
+							"  );\r",
+							"\r",
+							" \r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Cookie",
+						"value": "token={{booking_token_id}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstname\" : \"Ishan\",\n    \"lastname\" : \"Mahesh\",\n    \"totalprice\" : 1000,\n    \"depositpaid\" : true,\n    \"bookingdates\" : {\n        \"checkin\" : \"2018-01-01\",\n        \"checkout\" : \"2019-01-01\"\n    },\n    \"additionalneeds\" : \"Dinner\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}booking/{{BookingID}}",
+					"host": [
+						"{{url}}booking"
+					],
+					"path": [
+						"{{BookingID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6-Patch Booking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.sendRequest({\r",
+							"    url:pm.collectionVariables.get('url')+'auth',\r",
+							"    method:'POST',\r",
+							"    header:{\r",
+							"        'Content-Type':'application/json'\r",
+							"        },\r",
+							"    body:{\r",
+							"        mode:'raw',\r",
+							"        raw:JSON.stringify({\r",
+							"           \"username\" : pm.collectionVariables.get('username'),\r",
+							"           \"password\" :pm.collectionVariables.get('password')\r",
+							"            }\r",
+							"        )\r",
+							"    }\r",
+							"    \r",
+							"  },function(error,response) {\r",
+							"    if(error){\r",
+							"        console.log(error)\r",
+							"    }\r",
+							"    else{\r",
+							"        const responsebody=JSON.parse(response.text())\r",
+							"        const bookID =responsebody.token\r",
+							"        console.log(bookID)\r",
+							"        pm.variables.set('booking_token_id' ,bookID )\r",
+							"    }\r",
+							"  }\r",
+							"  );\r",
+							"\r",
+							" \r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Cookie",
+						"value": "token={{booking_token_id}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstname\" : \"Ish\",\n    \"lastname\" : \"M\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}booking/{{BookingID}}",
+					"host": [
+						"{{url}}booking"
+					],
+					"path": [
+						"{{BookingID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "7-Delete Booking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.sendRequest({\r",
+							"    url:pm.collectionVariables.get('url')+ 'auth ',\r",
+							"    method:'POST',\r",
+							"    header:{\r",
+							"        'Content-Type':'application/json'\r",
+							"        },\r",
+							"    body:{\r",
+							"        mode:'raw',\r",
+							"        raw:JSON.stringify({\r",
+							"          \"username\" : pm.collectionVariables.get('username'),\r",
+							"           \"password\" :pm.collectionVariables.get('password')\r",
+							"            }\r",
+							"        )\r",
+							"    }\r",
+							"    \r",
+							"  },function(error,response) {\r",
+							"    if(error){\r",
+							"        console.log(error)\r",
+							"    }\r",
+							"    else{\r",
+							"        const responsebody=JSON.parse(response.text())\r",
+							"        const bookID =responsebody.token\r",
+							"        console.log(bookID)\r",
+							"        pm.variables.set('booking_token_id' ,bookID )\r",
+							"    }\r",
+							"  }\r",
+							"  );\r",
+							"\r",
+							" \r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Cookie",
+						"value": "token={{booking_token_id}}"
+					}
+				],
+				"url": {
+					"raw": "{{url}}booking/{{BookingID}}",
+					"host": [
+						"{{url}}booking"
+					],
+					"path": [
+						"{{BookingID}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"if(pm.request.method=='GET'){\r",
+					"    pm.test(\"Status code is 200\", function () {\r",
+					"    pm.response.to.have.status(200);\r",
+					"    });\r",
+					"}\r",
+					"if(pm.request.method=='POST'){\r",
+					"    pm.test(\"Status code is 200\", function () {\r",
+					"    pm.response.to.have.status(200);\r",
+					"    });\r",
+					"}\r",
+					"\r",
+					"if((pm.request.method=='PUT')||(pm.request.method=='PATCH')){\r",
+					"    pm.test(\"Status code is 200\", function () {\r",
+					"    pm.response.to.have.status(200);\r",
+					"    });\r",
+					"}\r",
+					"\r",
+					"\r",
+					"\r",
+					"if(pm.request.method=='DELETE'){\r",
+					"    pm.test(\"Status code is 201\", function () {\r",
+					"    pm.response.to.have.status(201);\r",
+					"    });\r",
+					"}\r",
+					"\r",
+					"if(pm.info.requestName!==\"2-Get BookingID's\"){\r",
+					"\r",
+					"    pm.test(\"Response time is less than 200ms\", function () {\r",
+					"        pm.expect(pm.response.responseTime).to.be.below(200);\r",
+					"    });\r",
+					"}"
+				]
+			}
+		}
+	]
+}
