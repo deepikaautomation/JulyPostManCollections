@@ -1,0 +1,63 @@
+{
+	"info": {
+		"_postman_id": "f52607c5-21c5-4276-8955-991221b0fd8a",
+		"name": "withformdata",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14603549"
+	},
+	"item": [
+		{
+			"name": "WithFormdatas",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Name",
+							"value": "Deepika",
+							"type": "text"
+						},
+						{
+							"key": "Age",
+							"value": "37",
+							"type": "text"
+						},
+						{
+							"key": "Address",
+							"value": "India",
+							"type": "text"
+						},
+						{
+							"key": "Profile picture",
+							"type": "file",
+							"src": "postman-cloud:///1ef5b0cf-5c5f-40a0-8e4f-de4df4071457"
+						},
+						{
+							"key": "Bank statement",
+							"type": "file",
+							"src": "postman-cloud:///1ef5b0cf-8024-4c10-ab57-1b9b572d9345"
+						},
+						{
+							"key": "Identity ",
+							"type": "file",
+							"src": "postman-cloud:///1ef5b0cf-aee6-4f80-9670-4b2c9b0611ff"
+						}
+					]
+				},
+				"url": {
+					"raw": "httpbin.org/post",
+					"host": [
+						"httpbin",
+						"org"
+					],
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

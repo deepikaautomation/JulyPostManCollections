@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Contact List" tests="6" time="0.629">
+  <testsuite name="Create Contact / Add Contact" id="7b87c460-a140-4350-a2cc-3d782ba68bd7" timestamp="2024-09-18T14:36:55.278Z" tests="0" failures="0" errors="0" time="0.342"/>
+  <testsuite name="Retreive contacts / Get Contact" id="41ab669b-8686-4617-82c1-1a8f3c91bc74" timestamp="2024-09-18T14:36:55.278Z" tests="1" failures="0" errors="0" time="0.070">
+    <testcase name="Response content type is application/json" time="0.070" classname="RetreiveContactsGetContact"/>
+  </testsuite>
+  <testsuite name="Retreive contacts / Get by ID" id="7c4f46d4-e08d-4ade-9ab6-8ea36589acb2" timestamp="2024-09-18T14:36:55.278Z" tests="0" failures="0" errors="0" time="0.048"/>
+  <testsuite name="Update contact / New Request" id="e0fa836b-dcb6-4501-9d6f-cc2055b9832e" timestamp="2024-09-18T14:36:55.278Z" tests="0" failures="0" errors="0" time="0.055"/>
+  <testsuite name="Update Contact by patch / New Request" id="4d4aa9b9-41dd-4ea4-a35f-9c4b55e3fbe7" timestamp="2024-09-18T14:36:55.278Z" tests="0" failures="0" errors="0" time="0.062"/>
+  <testsuite name="Delete Contact / New Request" id="8bddc970-290d-4b10-bec6-34f4d4eb2899" timestamp="2024-09-18T14:36:55.278Z" tests="0" failures="0" errors="0" time="0.052"/>
+</testsuites>
